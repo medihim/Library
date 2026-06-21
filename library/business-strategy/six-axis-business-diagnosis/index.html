@@ -1,12 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#102f49">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="noindex,nofollow" name="robots"/>
+<meta content="#102f49" name="theme-color"/>
 <title>메디힘 6축 사업 진단 프레임워크</title>
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet"/>
 <style>
 :root{--navy:#102f49;--navy2:#19445f;--teal:#25817a;--teal-soft:#e7f3f1;--ink:#172533;--muted:#657482;--line:#dce5e9;--bg:#eef3f4;--paper:#fff;--gold:#b78a45;}
 *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;color:var(--ink);background:var(--bg);word-break:keep-all;line-height:1.75}
@@ -19,12 +20,15 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 @media(max-width:900px){.hero-inner{grid-template-columns:1fr} h1{font-size:44px} .layout{grid-template-columns:1fr} nav{position:static;display:none} article{padding:32px 26px}}
 @media(max-width:600px){.toplinks a:first-child{display:none} .hero-inner{padding:58px 0} h1{font-size:36px} .hero p{font-size:15px} article{padding:27px 20px} table{display:block;overflow-x:auto;white-space:normal} h1{font-size:29px}}
 @media print{.topbar,nav,.footer{display:none} body{background:#fff} .hero{background:#fff;color:#111;border-bottom:2px solid #111} .hero p,.score span{color:#555} .layout{display:block;width:100%;padding:0} article{border:0;box-shadow:none;padding:20px}}
+
+/* Stable section anchors */
+article h1[id]{scroll-margin-top:96px;}
 </style>
 </head>
 <body>
-<header class="topbar"><div class="brand"><img src="../../../assets/medihim_ippeo_logo.png" alt="Medihim · 이뻐"><div class="brand-text">MEDIHIM STRATEGY LIBRARY<small>BIZ ARCHITECT · INTERNAL</small></div></div><div class="toplinks"><a href="../../../">라이브러리 홈</a><a href="../">사업전략 섹션</a><a href="source.md">MD 원문</a><a href="download.docx" download="메디힘_6축_사업진단_프레임워크.docx">WORD</a></div></header>
-<section class="hero"><div class="hero-inner"><div><div class="eyebrow">BUSINESS DIAGNOSIS FRAMEWORK</div><h1>메디힘 6축<br>사업 진단 프레임워크</h1><p>메디힘의 해외환자 유치 및 병원 성장형 MSO 사업을 여섯 축으로 진단합니다. 현재 경쟁력과 핵심 병목을 구분하고, 개별 성공 사례를 반복 가능한 성장 시스템으로 전환하기 위한 판단 기준과 실행 우선순위를 제시합니다.</p></div><aside class="score"><span>현재 사업 진단</span><strong>20 / 30</strong><span>초기 검증 완료 · 반복성과 확장성 검증 단계</span></aside></div></section>
-<div class="layout"><nav><div class="label">CONTENTS</div><a href="#핵심-결론">1. 핵심 결론</a><a href="#메디힘-사업에-대입한-최종-6문장">2. 최종 6문장</a><a href="#메디힘-6축-사업-진단표">3. 종합 진단표</a><a href="#축별-상세-진단">4. 축별 상세 진단</a><a href="#6축-기준-메디힘-사업-분류">5. 사업 분류</a><a href="#최종-전략-문장">6. 최종 전략 문장</a></nav><main><article><h1 id="핵심-결론">1. 핵심 결론</h1>
+<header class="topbar"><div class="brand"><img alt="Medihim · 이뻐" src="../../../assets/medihim_ippeo_logo.png"/><div class="brand-text">MEDIHIM STRATEGY LIBRARY<small>BIZ ARCHITECT · INTERNAL</small></div></div><div class="toplinks"><a href="../../../">라이브러리 홈</a><a href="../">사업전략 섹션</a><a href="source.md">MD 원문</a><a download="메디힘_6축_사업진단_프레임워크.docx" href="download.docx">WORD</a></div></header>
+<section class="hero"><div class="hero-inner"><div><div class="eyebrow">BUSINESS DIAGNOSIS FRAMEWORK</div><h1>메디힘 6축<br/>사업 진단 프레임워크</h1><p>메디힘의 해외환자 유치 및 병원 성장형 MSO 사업을 여섯 축으로 진단합니다. 현재 경쟁력과 핵심 병목을 구분하고, 개별 성공 사례를 반복 가능한 성장 시스템으로 전환하기 위한 판단 기준과 실행 우선순위를 제시합니다.</p></div><aside class="score"><span>현재 사업 진단</span><strong>20 / 30</strong><span>초기 검증 완료 · 반복성과 확장성 검증 단계</span></aside></div></section>
+<div class="layout"><nav><div class="label">CONTENTS</div><a href="#section-1-summary">1. 핵심 결론</a><a href="#section-2-six-sentences">2. 최종 6문장</a><a href="#section-3-diagnosis-table">3. 종합 진단표</a><a href="#section-4-axis-detail">4. 축별 상세 진단</a><a href="#section-5-business-classification">5. 사업 분류</a><a href="#section-6-final-strategy">6. 최종 전략 문장</a></nav><main><article><h1 id="section-1-summary">1. 핵심 결론</h1>
 <p>메디힘의 현재 사업은 <strong>시장 선택과 고객 문제 이해는 비교적
 명확하지만, 성공 사례를 여러 병원에서 반복할 수 있는 ’표준화된 성장
 시스템’으로 전환하는 단계</strong>에 있습니다.</p>
@@ -38,11 +42,11 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 <p>종합점수는 <strong>20점/30점</strong>으로 평가할 수 있습니다.</p>
 <blockquote>
 <p><strong>진단:</strong> 시장·고객 적합성은 양호하지만, 아직 확장
-가능한 사업모델이 완성된 상태는 아니다.<br />
+가능한 사업모델이 완성된 상태는 아니다.<br>
 <strong>현재 단계:</strong> 초기 사업 검증 이후,
-재현성·제품화·단위경제성을 검증하는 단계</p>
+재현성·제품화·단위경제성을 검증하는 단계</br></p>
 </blockquote>
-<h1 id="메디힘-사업에-대입한-최종-6문장">2. 메디힘 사업에 대입한 최종
+<h1 id="section-2-six-sentences">2. 메디힘 사업에 대입한 최종
 6문장</h1>
 <h2 id="시장">2.1 시장</h2>
 <p>메디힘은 국내 환자만으로는 지속적인 성장이 어려운 병원과, 한국
@@ -71,7 +75,7 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 운영비, 성과보수, CRM·운영시스템 수익을 결합하여 병원 수와 환자 수가
 증가할수록 인력 증가율보다 이익 증가율이 높아지는 구조로 발전해야
 한다.</p>
-<h1 id="메디힘-6축-사업-진단표">3. 메디힘 6축 사업 진단표</h1>
+<h1 id="section-3-diagnosis-table">3. 메디힘 6축 사업 진단표</h1>
 <h2 id="평가기준">3.1 평가기준</h2>
 <table>
 <thead>
@@ -106,10 +110,10 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 <h2 id="종합-진단">3.2 종합 진단</h2>
 <table style="width:100%;">
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 30%" />
-<col style="width: 23%" />
-<col style="width: 23%" />
+<col style="width: 23%"/>
+<col style="width: 30%"/>
+<col style="width: 23%"/>
+<col style="width: 23%"/>
 </colgroup>
 <thead>
 <tr class="header">
@@ -167,7 +171,7 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 </tr>
 </tbody>
 </table>
-<h1 id="축별-상세-진단">4. 축별 상세 진단</h1>
+<h1 id="section-4-axis-detail">4. 축별 상세 진단</h1>
 <h2 id="시장-지속성">4.1 시장 지속성</h2>
 <h3 id="핵심-질문">4.1.1 핵심 질문</h3>
 <blockquote>
@@ -184,8 +188,8 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 <p>시장에는 다음 두 가지 구조적 문제가 존재합니다.</p>
 <table>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50%"/>
+<col style="width: 50%"/>
 </colgroup>
 <thead>
 <tr class="header">
@@ -336,10 +340,10 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 <h3 id="현재-시장-구조">4.3.2 현재 시장 구조</h3>
 <table>
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 23%" />
-<col style="width: 30%" />
-<col style="width: 23%" />
+<col style="width: 23%"/>
+<col style="width: 23%"/>
+<col style="width: 30%"/>
+<col style="width: 23%"/>
 </colgroup>
 <thead>
 <tr class="header">
@@ -715,7 +719,7 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 </tr>
 </tbody>
 </table>
-<h1 id="축-기준-메디힘-사업-분류">5. 6축 기준 메디힘 사업 분류</h1>
+<h1 id="section-5-business-classification">5. 6축 기준 메디힘 사업 분류</h1>
 <h2 id="강점축">5.1 강점축</h2>
 <table>
 <thead>
@@ -776,7 +780,7 @@ table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;bo
 </tr>
 </tbody>
 </table>
-<h1 id="최종-전략-문장">6. 최종 전략 문장</h1>
+<h1 id="section-6-final-strategy">6. 최종 전략 문장</h1>
 <p>메디힘의 다음 성장단계는 해외환자 유치 프로젝트를 더 많이 수주하는
 것이 아니라, <strong>한 병원에서 검증된 해외환자 획득·상담·예약·매출
 구조를 표준화하여 다른 병원에서도 반복할 수 있는 ’해외환자 매출
