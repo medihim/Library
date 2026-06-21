@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#102f49">
+<title>메디힘 6축 사업 진단 프레임워크</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--navy:#102f49;--navy2:#19445f;--teal:#25817a;--teal-soft:#e7f3f1;--ink:#172533;--muted:#657482;--line:#dce5e9;--bg:#eef3f4;--paper:#fff;--gold:#b78a45;}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;color:var(--ink);background:var(--bg);word-break:keep-all;line-height:1.75}
+a{color:inherit} .topbar{position:sticky;top:0;z-index:20;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1180px)/2));background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--navy)} .brand img{width:148px;height:auto;display:block} .brand-text{display:flex;flex-direction:column;gap:1px} .brand-text small{font-size:9px;color:var(--muted);letter-spacing:.1em} .toplinks{display:flex;gap:8px} .toplinks a{text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:9px;font-size:11px;font-weight:800;background:#fff}
+.hero{background:linear-gradient(145deg,#0d293f,#19445f 58%,#1b6d68);color:#fff} .hero-inner{width:min(1180px,calc(100% - 42px));margin:auto;padding:78px 0 72px;display:grid;grid-template-columns:1.25fr .55fr;gap:56px;align-items:end} .eyebrow{font-size:12px;font-weight:900;letter-spacing:.16em;color:#83d2c6} h1{font-size:56px;line-height:1.08;letter-spacing:-.055em;margin:20px 0 22px} .hero p{max-width:770px;color:rgba(255,255,255,.78);font-size:17px} .score{padding:24px;border:1px solid rgba(255,255,255,.2);border-radius:20px;background:rgba(255,255,255,.08)} .score strong{display:block;font-size:44px;line-height:1.05} .score span{font-size:12px;color:rgba(255,255,255,.67)}
+.layout{width:min(1180px,calc(100% - 42px));margin:0 auto;display:grid;grid-template-columns:240px minmax(0,1fr);gap:34px;padding:38px 0 90px} nav{position:sticky;top:88px;align-self:start;padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.86)} nav .label{font-size:10px;font-weight:900;letter-spacing:.13em;color:var(--gold);margin-bottom:10px} nav a{display:block;text-decoration:none;color:#5e6d79;padding:7px 6px;border-radius:7px;font-size:12px;font-weight:700} nav a:hover{background:var(--teal-soft);color:var(--teal)} main{min-width:0} article{padding:42px 46px;border:1px solid var(--line);border-radius:22px;background:var(--paper);box-shadow:0 18px 48px rgba(18,52,79,.07)}
+h1:first-child{display:none} h1{color:var(--navy);font-size:34px;margin:58px 0 20px;padding-top:12px;border-top:2px solid var(--navy)} article>h1:first-of-type{margin-top:0} h2{color:var(--navy);font-size:25px;letter-spacing:-.035em;margin:38px 0 14px} h3{color:var(--teal);font-size:18px;margin:28px 0 10px} p{margin:9px 0} strong{color:var(--navy)} blockquote{margin:20px 0;padding:18px 20px;border-left:4px solid var(--teal);border-radius:0 12px 12px 0;background:var(--teal-soft);color:#35545a} blockquote p{margin:0} ul,ol{padding-left:24px} li{margin:5px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0 28px;border:1px solid var(--line);border-radius:13px;overflow:hidden;font-size:13px} th{background:var(--navy);color:#fff;text-align:left;font-weight:850} th,td{padding:12px 13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:top} tr:last-child td{border-bottom:0} th:last-child,td:last-child{border-right:0} tbody tr:nth-child(even){background:#f8fafb} hr{border:0;border-top:1px solid var(--line);margin:40px 0} .footer{width:min(1180px,calc(100% - 42px));margin:0 auto 34px;color:#81909a;font-size:11px;display:flex;justify-content:space-between}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr} h1{font-size:44px} .layout{grid-template-columns:1fr} nav{position:static;display:none} article{padding:32px 26px}}
+@media(max-width:600px){.toplinks a:first-child{display:none} .hero-inner{padding:58px 0} h1{font-size:36px} .hero p{font-size:15px} article{padding:27px 20px} table{display:block;overflow-x:auto;white-space:normal} h1{font-size:29px}}
+@media print{.topbar,nav,.footer{display:none} body{background:#fff} .hero{background:#fff;color:#111;border-bottom:2px solid #111} .hero p,.score span{color:#555} .layout{display:block;width:100%;padding:0} article{border:0;box-shadow:none;padding:20px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><img src="../../../assets/medihim_ippeo_logo.png" alt="Medihim · 이뻐"><div class="brand-text">MEDIHIM STRATEGY LIBRARY<small>BIZ ARCHITECT · INTERNAL</small></div></div><div class="toplinks"><a href="../../../">라이브러리 홈</a><a href="../">사업전략 섹션</a><a href="source.md">MD 원문</a><a href="download.docx" download="메디힘_6축_사업진단_프레임워크.docx">WORD</a></div></header>
+<section class="hero"><div class="hero-inner"><div><div class="eyebrow">BUSINESS DIAGNOSIS FRAMEWORK</div><h1>메디힘 6축<br>사업 진단 프레임워크</h1><p>해외환자 유치 운영체계와 병원 성장형 MSO 사업을 시장·고객·표본·전환·획득·경제성의 여섯 축으로 진단하고, 반복 가능한 성장 시스템으로 전환하기 위한 내부 실행 기준입니다.</p></div><aside class="score"><span>CURRENT DIAGNOSIS</span><strong>20 / 30</strong><span>초기 검증 완료 · 반복성과 확장성 검증 단계</span></aside></div></section>
+<div class="layout"><nav><div class="label">CONTENTS</div><a href="#핵심-결론">1. 핵심 결론</a><a href="#메디힘-사업에-대입한-최종-6문장">2. 최종 6문장</a><a href="#메디힘-6축-사업-진단표">3. 종합 진단표</a><a href="#축별-상세-진단">4. 축별 상세 진단</a><a href="#6축-기준-메디힘-사업-분류">5. 사업 분류</a><a href="#최종-전략-문장">6. 최종 전략 문장</a></nav><main><article><h1 id="핵심-결론">1. 핵심 결론</h1>
+<p>메디힘의 현재 사업은 <strong>시장 선택과 고객 문제 이해는 비교적
+명확하지만, 성공 사례를 여러 병원에서 반복할 수 있는 ’표준화된 성장
+시스템’으로 전환하는 단계</strong>에 있습니다.</p>
+<p>현재 가장 큰 병목은 시장 수요가 아니라 다음 세 가지입니다.</p>
+<ol type="1">
+<li><strong>신규 환자 획득의 재현성</strong></li>
+<li><strong>상담에서 예약·매출까지의 전환 표준화</strong></li>
+<li><strong>인력 투입량과 무관하게 이익이 증가하는 경제성
+구조</strong></li>
+</ol>
+<p>종합점수는 <strong>20점/30점</strong>으로 평가할 수 있습니다.</p>
+<blockquote>
+<p><strong>진단:</strong> 시장·고객 적합성은 양호하지만, 아직 확장
+가능한 사업모델이 완성된 상태는 아니다.<br />
+<strong>현재 단계:</strong> 초기 사업 검증 이후,
+재현성·제품화·단위경제성을 검증하는 단계</p>
+</blockquote>
+<h1 id="메디힘-사업에-대입한-최종-6문장">2. 메디힘 사업에 대입한 최종
+6문장</h1>
+<h2 id="시장">2.1 시장</h2>
+<p>메디힘은 국내 환자만으로는 지속적인 성장이 어려운 병원과, 한국
+의료서비스를 원하지만 정보 부족과 불확실성으로 결정을 미루는 해외환자의
+문제가 향후에도 커질 것이라는 시장가설을 선택했다.</p>
+<h2 id="고객">2.2 고객</h2>
+<p>병원은 단순한 광고 집행이 아니라 해외환자의
+문의·상담·예약·내원·매출이 반복되는 구조를 필요로 하고, 해외환자는 병원
+선택, 의료진 신뢰, 가격, 통역, 사후관리의 불확실성을 해결할 수 있는
+일관된 의사결정 경험을 필요로 한다.</p>
+<h2 id="표본">2.3 표본</h2>
+<p>메디힘은 일본 직접 마케팅, 중국 에이전시, 영어권 채널, 비대면 상담회
+등의 시장 진입 경로를 확보하고 있으나, 특정 병원이나 특정 시기에
+의존하지 않고 신규 환자가 지속적으로 유입되는 수준까지는 추가 검증이
+필요하다.</p>
+<h2 id="전환">2.4 전환</h2>
+<p>메디힘이 판매해야 하는 것은 광고 운영이 아니라, 해외환자가 병원을
+신뢰하고 상담과 예약까지 이동하도록 만드는 ’해외환자 매출 운영체계’이며,
+이를 병원이 쉽게 이해할 수 있는 상품·성과·증거 구조로 전달해야 한다.</p>
+<h2 id="획득">2.5 획득</h2>
+<p>메디힘은 콘텐츠, 광고, 인플루언서, LINE, 비대면 상담, CRM 데이터를
+연결하여 어떤 메시지와 채널이 실제 예약을 만드는지 분해하고, 성공한 획득
+방식을 병원과 국가별로 반복할 수 있는 운영체계로 전환해야 한다.</p>
+<h2 id="경제성">2.6 경제성</h2>
+<p>메디힘의 사업은 매출연동 수수료에만 의존하지 않고 초기 구축비, 월
+운영비, 성과보수, CRM·운영시스템 수익을 결합하여 병원 수와 환자 수가
+증가할수록 인력 증가율보다 이익 증가율이 높아지는 구조로 발전해야
+한다.</p>
+<h1 id="메디힘-6축-사업-진단표">3. 메디힘 6축 사업 진단표</h1>
+<h2 id="평가기준">3.1 평가기준</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">점수</th>
+<th>판단 기준</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1점</td>
+<td>가설과 방향조차 명확하지 않음</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2점</td>
+<td>가설은 있으나 실제 고객 검증이 부족함</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3점</td>
+<td>일부 사례와 초기 성과가 존재함</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4점</td>
+<td>복수 사례에서 성과가 검증되고 있음</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5점</td>
+<td>표준화되어 반복·확장 가능한 상태</td>
+</tr>
+</tbody>
+</table>
+<h2 id="종합-진단">3.2 종합 진단</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 30%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>진단축</th>
+<th style="text-align: right;">현재 점수</th>
+<th>현재 판단</th>
+<th>핵심 산출물</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. 시장 지속성</td>
+<td style="text-align: right;"><strong>4점</strong></td>
+<td>병원의 해외환자 유치 필요성과 해외환자의 정보 비대칭 문제는 지속될
+가능성이 높음</td>
+<td>시장가설</td>
+</tr>
+<tr class="even">
+<td>2. 문제 이해도</td>
+<td style="text-align: right;"><strong>4점</strong></td>
+<td>병원과 해외환자 양쪽의 문제를 비교적 구체적으로 이해하고 있음</td>
+<td>고객 문제지도</td>
+</tr>
+<tr class="odd">
+<td>3. 시장 확장성</td>
+<td style="text-align: right;"><strong>3점</strong></td>
+<td>일본·중국·영어권 확장 가능성은 있으나 반복 유입 규모는 검증 중</td>
+<td>시장 세분화표</td>
+</tr>
+<tr class="even">
+<td>4. 전환력</td>
+<td style="text-align: right;"><strong>3점</strong></td>
+<td>일부 병원과 상담회에서 전환 사례가 있지만 표준 전환 구조는
+미완성</td>
+<td>전환 페이지</td>
+</tr>
+<tr class="odd">
+<td>5. 획득 재현성</td>
+<td style="text-align: right;"><strong>3점</strong></td>
+<td>퍼널·콘텐츠·광고 운영체계가 구축되고 있으나 병원 간 재현성은
+부족</td>
+<td>콘텐츠 실험체계</td>
+</tr>
+<tr class="even">
+<td>6. 경제성</td>
+<td style="text-align: right;"><strong>3점</strong></td>
+<td>수익 가능성은 있으나 인력 의존도·광고비·성과 변동성이 큼</td>
+<td>단위경제성 모델</td>
+</tr>
+<tr class="odd">
+<td><strong>합계</strong></td>
+<td style="text-align: right;"><strong>20/30점</strong></td>
+<td>초기 검증 완료, 반복성과 확장성 검증 단계</td>
+<td>사업 운영체계</td>
+</tr>
+</tbody>
+</table>
+<h1 id="축별-상세-진단">4. 축별 상세 진단</h1>
+<h2 id="시장-지속성">4.1 시장 지속성</h2>
+<h3 id="핵심-질문">4.1.1 핵심 질문</h3>
+<blockquote>
+<p>3년 뒤에도 병원의 해외환자 유치 문제와 해외환자의 병원 선택 문제가
+커질 것인가?</p>
+</blockquote>
+<h3 id="메디힘의-시장가설">4.1.2 메디힘의 시장가설</h3>
+<p>메디힘이 선택한 시장은 단순한 의료광고 시장이 아닙니다.</p>
+<blockquote>
+<p><strong>해외환자를 유치하고 싶지만 자체적인 국가별
+마케팅·상담·CRM·운영 역량을 구축하기 어려운 병원의 문제를 해결하는
+시장</strong></p>
+</blockquote>
+<p>시장에는 다음 두 가지 구조적 문제가 존재합니다.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>이해관계자</th>
+<th>구조적 문제</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>병원</td>
+<td>국내 환자 성장 둔화, 해외환자 유치 경험 부족, 국가별 운영 인력
+부족</td>
+</tr>
+<tr class="even">
+<td>해외환자</td>
+<td>병원 정보 부족, 의료진 신뢰 부족, 가격·통역·사후관리 불확실성</td>
+</tr>
+</tbody>
+</table>
+<h3 id="현재-평가">4.1.3 현재 평가</h3>
+<p><strong>4점</strong></p>
+<p>시장 문제 자체는 명확합니다. 다만 의료관광 수요가 커진다고 해서
+메디힘의 사업이 자동으로 성장하는 것은 아닙니다. 경쟁 에이전시, 플랫폼,
+병원 자체 마케팅 조직과 비교했을 때 메디힘만의 방어력이 필요합니다.</p>
+<h3 id="핵심-과제">4.1.4 핵심 과제</h3>
+<p>시장가설을 다음과 같이 좁혀야 합니다.</p>
+<blockquote>
+<p>모든 해외환자 유치 문제가 아니라, 고관여·고객단가 의료서비스에서
+국가별 디지털 마케팅과 상담 운영체계가 부족한 병원의 문제를
+해결한다.</p>
+</blockquote>
+<h2 id="문제-이해도">4.2 문제 이해도</h2>
+<h3 id="핵심-질문-1">4.2.1 핵심 질문</h3>
+<blockquote>
+<p>고객의 문제를 추상적인 불편이 아니라 실제 행동 단위로 이해하고
+있는가?</p>
+</blockquote>
+<p>메디힘의 고객은 하나가 아니라 두 종류입니다.</p>
+<h3 id="병원-고객-문제지도">4.2.2 병원 고객 문제지도</h3>
+<table>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>병원의 문제</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>시장 진입</td>
+<td>어느 국가와 시술부터 시작해야 할지 모름</td>
+</tr>
+<tr class="even">
+<td>채널 개설</td>
+<td>인스타그램·LINE을 개설하지만 운영 기준이 없음</td>
+</tr>
+<tr class="odd">
+<td>콘텐츠</td>
+<td>어떤 콘텐츠가 문의와 예약을 만드는지 모름</td>
+</tr>
+<tr class="even">
+<td>광고</td>
+<td>광고 조회와 실제 매출이 연결되지 않음</td>
+</tr>
+<tr class="odd">
+<td>상담</td>
+<td>문의 대응 속도와 상담 품질이 담당자마다 다름</td>
+</tr>
+<tr class="even">
+<td>예약</td>
+<td>상담 이후 미예약·이탈 이유를 파악하지 못함</td>
+</tr>
+<tr class="odd">
+<td>데이터</td>
+<td>광고·상담·예약·매출 데이터가 분리되어 있음</td>
+</tr>
+<tr class="even">
+<td>의사결정</td>
+<td>광고비와 운영비를 늘려야 할 근거가 없음</td>
+</tr>
+</tbody>
+</table>
+<h3 id="해외환자-문제지도">4.2.3 해외환자 문제지도</h3>
+<table>
+<thead>
+<tr class="header">
+<th>단계</th>
+<th>해외환자의 문제</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>인지</td>
+<td>어떤 병원이 자신에게 적합한지 모름</td>
+</tr>
+<tr class="even">
+<td>탐색</td>
+<td>병원 정보를 여러 번 확인해야 함</td>
+</tr>
+<tr class="odd">
+<td>비교</td>
+<td>가격과 시술 차이를 정확히 이해하기 어려움</td>
+</tr>
+<tr class="even">
+<td>신뢰</td>
+<td>의료진과 결과에 대한 불확실성이 큼</td>
+</tr>
+<tr class="odd">
+<td>상담</td>
+<td>언어와 응답속도 때문에 피로도가 높음</td>
+</tr>
+<tr class="even">
+<td>결정</td>
+<td>방문 전 수술·시술 결정을 내리기 어려움</td>
+</tr>
+<tr class="odd">
+<td>내원</td>
+<td>이동·숙박·통역 과정이 복잡함</td>
+</tr>
+<tr class="even">
+<td>사후관리</td>
+<td>귀국 후 문제 발생 시 대응이 불안함</td>
+</tr>
+</tbody>
+</table>
+<h3 id="현재-평가-1">4.2.4 현재 평가</h3>
+<p><strong>4점</strong></p>
+<p>메디힘은 현업을 통해 병원과 환자의 문제를 상당히 구체적으로 이해하고
+있습니다. 다만 개별 프로젝트에서 발견한 경험을 표준 고객 문제지도와 정량
+데이터로 전환해야 합니다.</p>
+<h3 id="핵심-과제-1">4.2.5 핵심 과제</h3>
+<p>모든 상담과 이탈 사유를 코드화해야 합니다.</p>
+<ul>
+<li>가격 이탈</li>
+<li>의료진 신뢰 부족</li>
+<li>일정 불일치</li>
+<li>경쟁 병원 선택</li>
+<li>시술 적합성 불확실</li>
+<li>가족 반대</li>
+<li>응답 지연</li>
+<li>사후관리 불안</li>
+</ul>
+<h2 id="시장-확장성">4.3 시장 확장성</h2>
+<h3 id="핵심-질문-2">4.3.1 핵심 질문</h3>
+<blockquote>
+<p>신규 고객과 신규 환자가 계속 유입되며 인접 시장으로 확장할 수
+있는가?</p>
+</blockquote>
+<h3 id="현재-시장-구조">4.3.2 현재 시장 구조</h3>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 23%" />
+<col style="width: 30%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>구분</th>
+<th>현재 접근 방식</th>
+<th style="text-align: right;">확장 가능성</th>
+<th>주요 한계</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>일본</td>
+<td>직접 광고·인스타그램·LINE</td>
+<td style="text-align: right;">높음</td>
+<td>경쟁 심화, 콘텐츠 생산 부담</td>
+</tr>
+<tr class="even">
+<td>중국</td>
+<td>현지 에이전시·파트너</td>
+<td style="text-align: right;">중간</td>
+<td>파트너 의존도와 수수료</td>
+</tr>
+<tr class="odd">
+<td>영어권</td>
+<td>디지털 채널·외주·직접 운영</td>
+<td style="text-align: right;">중간</td>
+<td>초기 표본과 현지화 부족</td>
+</tr>
+<tr class="even">
+<td>비대면 상담회</td>
+<td>의사 상담 기반 전환</td>
+<td style="text-align: right;">높음</td>
+<td>의료법·운영비·의사 일정</td>
+</tr>
+<tr class="odd">
+<td>병원 MSO</td>
+<td>병원 성장 운영 대행</td>
+<td style="text-align: right;">높음</td>
+<td>상품 복잡성·계약 리스크</td>
+</tr>
+<tr class="even">
+<td>이뻐 플랫폼</td>
+<td>상담·매칭 플랫폼</td>
+<td style="text-align: right;">잠재력 있음</td>
+<td>독립적인 사용자 유입 부족</td>
+</tr>
+</tbody>
+</table>
+<h3 id="현재-평가-2">4.3.3 현재 평가</h3>
+<p><strong>3점</strong></p>
+<p>국가와 채널의 확장 가능성은 존재하지만, 현재는 병원별 맞춤형 프로젝트
+성격이 강합니다. 병원이 하나 추가될 때마다 운영인력과 콘텐츠 제작량이
+동일하게 증가하면 사업 확장성이 낮아집니다.</p>
+<h3 id="핵심-과제-2">4.3.4 핵심 과제</h3>
+<p>다음 기준으로 시장을 세분화해야 합니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>시장 세분화 기준</th>
+<th>권장 구분</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>국가</td>
+<td>일본 / 중국 / 영어권</td>
+</tr>
+<tr class="even">
+<td>의료 분야</td>
+<td>성형 / 피부 / 치과 / 검진</td>
+</tr>
+<tr class="odd">
+<td>객단가</td>
+<td>저관여 / 중관여 / 고관여</td>
+</tr>
+<tr class="even">
+<td>결정 방식</td>
+<td>즉시예약 / 상담 후 예약 / 의사상담 후 예약</td>
+</tr>
+<tr class="odd">
+<td>운영 방식</td>
+<td>직접운영 / 파트너운영 / 혼합형</td>
+</tr>
+<tr class="even">
+<td>병원 역량</td>
+<td>초기형 / 성장형 / 내재화형</td>
+</tr>
+</tbody>
+</table>
+<h2 id="전환력">4.4 전환력</h2>
+<h3 id="핵심-질문-3">4.4.1 핵심 질문</h3>
+<blockquote>
+<p>병원이 메디힘을 구매해야 하는 이유와 환자가 해당 병원을 선택해야 하는
+이유가 명확한가?</p>
+</blockquote>
+<h3 id="현재의-문제">4.4.2 현재의 문제</h3>
+<p>메디힘의 사업은 다음 요소를 모두 포함합니다.</p>
+<ul>
+<li>콘텐츠</li>
+<li>광고</li>
+<li>SNS 운영</li>
+<li>상담</li>
+<li>통역</li>
+<li>CRM</li>
+<li>환자 유치</li>
+<li>데이터 분석</li>
+<li>병원 운영</li>
+<li>정부지원사업</li>
+<li>플랫폼</li>
+</ul>
+<p>기능은 많지만, 이 기능을 모두 설명하면 고객에게는 오히려 복잡한
+사업으로 보일 수 있습니다.</p>
+<h3 id="권장-가치제안">4.4.3 권장 가치제안</h3>
+<blockquote>
+<p>메디힘은 병원 광고를 운영하는 회사가 아니라, 해외환자가 병원을 발견한
+순간부터 상담·예약·내원·매출까지 이어지는 해외환자 매출 운영체계를
+구축하는 회사입니다.</p>
+</blockquote>
+<h3 id="상품-전환-구조">4.4.4 상품 전환 구조</h3>
+<table>
+<thead>
+<tr class="header">
+<th>기존 표현</th>
+<th>권장 표현</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>일본 마케팅 대행</td>
+<td>일본 환자 예약 시스템 구축</td>
+</tr>
+<tr class="even">
+<td>SNS 운영</td>
+<td>환자 의사결정 콘텐츠 운영</td>
+</tr>
+<tr class="odd">
+<td>광고 관리</td>
+<td>예약 가능성이 높은 환자 획득</td>
+</tr>
+<tr class="even">
+<td>LINE 상담</td>
+<td>상담·예약 전환 운영</td>
+</tr>
+<tr class="odd">
+<td>리포트 제공</td>
+<td>광고비 대비 매출 의사결정 지원</td>
+</tr>
+<tr class="even">
+<td>해외환자 유치</td>
+<td>국가별 환자 매출 파이프라인 구축</td>
+</tr>
+</tbody>
+</table>
+<h3 id="현재-평가-3">4.4.5 현재 평가</h3>
+<p><strong>3점</strong></p>
+<p>제안서와 서비스 범위는 고도화되고 있지만, 상품가치가 한 문장과 한
+가지 핵심 성과지표로 완전히 압축되지는 않았습니다.</p>
+<h3 id="핵심-과제-3">4.4.6 핵심 과제</h3>
+<p>상품별 전환 페이지를 다음 구조로 표준화해야 합니다.</p>
+<ol type="1">
+<li>병원의 현재 문제</li>
+<li>손실되는 매출</li>
+<li>메디힘의 해결 구조</li>
+<li>90일 실행 과정</li>
+<li>실제 성과 사례</li>
+<li>예상 KPI</li>
+<li>비용과 계약 조건</li>
+<li>도입 의사결정 요청</li>
+</ol>
+<h2 id="획득-재현성">4.5 획득 재현성</h2>
+<h3 id="핵심-질문-4">4.5.1 핵심 질문</h3>
+<blockquote>
+<p>성공한 콘텐츠와 광고를 분해하여 다른 병원에서도 반복할 수 있는가?</p>
+</blockquote>
+<h3 id="현재-운영-구조">4.5.2 현재 운영 구조</h3>
+<p>메디힘은 다음과 같은 풀퍼널 구조를 구축하고 있습니다.</p>
+<blockquote>
+<p>광고·콘텐츠 → 인스타그램 프로필 → LINE → 상담 → 예약 → 내원 → 시술 →
+매출</p>
+</blockquote>
+<p>또한 TOF·MOF·BOF 콘텐츠 분류, 광고 데이터 추출, 상담 데이터와 매출
+데이터 연결 작업을 수행하고 있습니다.</p>
+<p>그러나 재현성이 있다고 판단하려면 다음 조건을 충족해야 합니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>재현성 조건</th>
+<th>현재 상태</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>성공 콘텐츠 유형이 정의되어 있음</td>
+<td>일부 충족</td>
+</tr>
+<tr class="even">
+<td>소재별 성과를 정기적으로 측정함</td>
+<td>충족 중</td>
+</tr>
+<tr class="odd">
+<td>상담 결과와 광고 소재가 연결됨</td>
+<td>구축 중</td>
+</tr>
+<tr class="even">
+<td>예약과 실제 매출이 연결됨</td>
+<td>부분 연결</td>
+</tr>
+<tr class="odd">
+<td>성공 소재를 변형·재생산함</td>
+<td>초기 단계</td>
+</tr>
+<tr class="even">
+<td>다른 병원에서도 같은 구조가 작동함</td>
+<td>추가 검증 필요</td>
+</tr>
+</tbody>
+</table>
+<h3 id="현재-평가-4">4.5.3 현재 평가</h3>
+<p><strong>3점</strong></p>
+<p>세린의원 등에서 데이터 기반 광고·콘텐츠 운영체계를 구축하고 있지만,
+아직 하나의 성공 사례가 여러 병원에서 반복되는 수준까지는 검증되지
+않았습니다.</p>
+<h3 id="핵심-과제-4">4.5.4 핵심 과제</h3>
+<p>콘텐츠를 작품이 아니라 실험 단위로 관리해야 합니다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>실험 항목</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>문제 메시지</td>
+<td>자연스럽지 않은 결과에 대한 불안</td>
+</tr>
+<tr class="even">
+<td>신뢰 메시지</td>
+<td>원장 직접 상담·시술</td>
+</tr>
+<tr class="odd">
+<td>증거</td>
+<td>전후 사례·상담 과정·후기</td>
+</tr>
+<tr class="even">
+<td>형식</td>
+<td>릴스·캐러셀·스토리</td>
+</tr>
+<tr class="odd">
+<td>도착지</td>
+<td>프로필·LINE·상담신청</td>
+</tr>
+<tr class="even">
+<td>KPI</td>
+<td>조회율·프로필 방문·LINE 추가·상담·예약</td>
+</tr>
+</tbody>
+</table>
+<h2 id="경제성-1">4.6 경제성</h2>
+<h3 id="핵심-질문-5">4.6.1 핵심 질문</h3>
+<blockquote>
+<p>매출이 늘어날수록 이익과 기업가치도 함께 증가하는가?</p>
+</blockquote>
+<h3 id="현재-수익모델">4.6.2 현재 수익모델</h3>
+<table>
+<thead>
+<tr class="header">
+<th>수익원</th>
+<th>특성</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>초기 세팅비</td>
+<td>초기 구축비 회수</td>
+</tr>
+<tr class="even">
+<td>월 운영비</td>
+<td>안정적인 고정매출</td>
+</tr>
+<tr class="odd">
+<td>환자 유치 수수료</td>
+<td>성과 기반 수익</td>
+</tr>
+<tr class="even">
+<td>광고·콘텐츠 운영비</td>
+<td>운영 대행 수익</td>
+</tr>
+<tr class="odd">
+<td>정부지원사업</td>
+<td>프로젝트 기반 매출</td>
+</tr>
+<tr class="even">
+<td>플랫폼·CRM</td>
+<td>향후 반복 수익 가능성</td>
+</tr>
+</tbody>
+</table>
+<h3 id="현재-리스크">4.6.3 현재 리스크</h3>
+<table>
+<thead>
+<tr class="header">
+<th>리스크</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>인력 의존도</td>
+<td>병원 증가에 따라 운영인력도 증가</td>
+</tr>
+<tr class="even">
+<td>병원 집중도</td>
+<td>일부 병원 매출 의존 가능성</td>
+</tr>
+<tr class="odd">
+<td>광고비 변동</td>
+<td>CAC 상승 시 수익성 악화</td>
+</tr>
+<tr class="even">
+<td>성과보장</td>
+<td>환불·운영비 면제 조건이 손실로 연결될 수 있음</td>
+</tr>
+<tr class="odd">
+<td>수수료 규제</td>
+<td>의료법·외국인환자 유치 관련 계약 리스크</td>
+</tr>
+<tr class="even">
+<td>매출 인식</td>
+<td>병원 매출과 메디힘 매출의 정산 기준 복잡</td>
+</tr>
+<tr class="odd">
+<td>현금흐름</td>
+<td>마케팅 비용 선투입 후 수수료 회수 지연</td>
+</tr>
+</tbody>
+</table>
+<h3 id="현재-평가-5">4.6.4 현재 평가</h3>
+<p><strong>3점</strong></p>
+<p>프로젝트 단위로는 이익을 낼 수 있지만, 병원 수가 증가할수록 인력과
+관리 복잡성이 함께 증가할 가능성이 큽니다.</p>
+<h3 id="권장-수익구조">4.6.5 권장 수익구조</h3>
+<blockquote>
+<p><strong>구축비 + 월 운영비 + 성과보수 + 시스템 사용료</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>수익항목</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>구축비</td>
+<td>초기 콘텐츠·채널·CRM 구축 원가 회수</td>
+</tr>
+<tr class="even">
+<td>월 운영비</td>
+<td>기본 인력과 운영비 보전</td>
+</tr>
+<tr class="odd">
+<td>성과보수</td>
+<td>병원과 성과 정렬</td>
+</tr>
+<tr class="even">
+<td>시스템 사용료</td>
+<td>반복수익과 기업가치 형성</td>
+</tr>
+<tr class="odd">
+<td>추가 프로젝트비</td>
+<td>상담회·인플루언서·현지 캠페인 비용</td>
+</tr>
+</tbody>
+</table>
+<h1 id="축-기준-메디힘-사업-분류">5. 6축 기준 메디힘 사업 분류</h1>
+<h2 id="강점축">5.1 강점축</h2>
+<table>
+<thead>
+<tr class="header">
+<th>축</th>
+<th>판단</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>시장 지속성</td>
+<td>시장의 구조적 문제는 유효함</td>
+</tr>
+<tr class="even">
+<td>문제 이해도</td>
+<td>병원과 해외환자 문제를 현업 수준에서 이해함</td>
+</tr>
+</tbody>
+</table>
+<p>메디힘의 가장 큰 자산은 광고 기술 자체보다 <strong>병원의 해외환자
+유치 과정에서 실제로 어디에서 문제가 발생하는지를 이해하고 있다는
+점</strong>입니다.</p>
+<h2 id="검증-필요축">5.2 검증 필요축</h2>
+<table>
+<thead>
+<tr class="header">
+<th>축</th>
+<th>판단</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>시장 확장성</td>
+<td>국가·병원 확장이 운영인력 증가 없이 가능한지 검증 필요</td>
+</tr>
+<tr class="even">
+<td>전환력</td>
+<td>서비스 범위를 하나의 구매 이유로 압축해야 함</td>
+</tr>
+<tr class="odd">
+<td>획득 재현성</td>
+<td>세린 등 개별 성공을 표준 모델로 전환해야 함</td>
+</tr>
+</tbody>
+</table>
+<h2 id="구조-개선축">5.3 구조 개선축</h2>
+<table>
+<thead>
+<tr class="header">
+<th>축</th>
+<th>판단</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>경제성</td>
+<td>수수료형 에이전시에서 운영체계·시스템형 사업으로 전환 필요</td>
+</tr>
+</tbody>
+</table>
+<h1 id="최종-전략-문장">6. 최종 전략 문장</h1>
+<p>메디힘의 다음 성장단계는 해외환자 유치 프로젝트를 더 많이 수주하는
+것이 아니라, <strong>한 병원에서 검증된 해외환자 획득·상담·예약·매출
+구조를 표준화하여 다른 병원에서도 반복할 수 있는 ’해외환자 매출
+운영체계’로 제품화하는 것</strong>입니다.</p>
+<p>이를 공식으로 표현하면 다음과 같습니다.</p>
+<blockquote>
+<p><strong>메디힘 기업가치 = 시장 수요 × 병원 도입률 × 환자 획득 재현성
+× 예약 전환율 × 병원당 기여이익 × 계약 유지기간</strong></p>
+</blockquote>
+<p>따라서 현재 메디힘의 최우선 과제는 다음 순서입니다.</p>
+<ol type="1">
+<li><strong>세린 등 현재 프로젝트의 광고–상담–예약–매출 데이터 완전
+연결</strong></li>
+<li><strong>국가·시술별 표준 퍼널과 KPI 확정</strong></li>
+<li><strong>90일 단위 표준 상품과 운영 SOP 구축</strong></li>
+<li><strong>병원별 손익이 아닌 병원 코호트별 단위경제성
+관리</strong></li>
+<li><strong>운영 대행 기능을 CRM·콘텐츠·리포트 시스템으로
+제품화</strong></li>
+</ol>
+<p>핵심은 <strong>더 많은 일을 수행하는 회사가 아니라, 검증된 성과
+구조를 더 적은 추가비용으로 반복하는 회사가 되는 것</strong>입니다.</p>
+</article></main></div>
+<footer class="footer"><span>내부 공유용 · MEDIHIM</span><span>2026.06</span></footer>
+</body></html>
